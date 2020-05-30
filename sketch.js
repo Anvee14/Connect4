@@ -45,7 +45,6 @@ function setup() {
   
   
   ground = new Ground(arrBoard[0][3]["x"],arrBoard[0][0]["y"]+30,420,10)
-
   coin = new Coin(arrBoard[0][3]["x"],arrBoard[5][0]["y"]-squareSize,50,50)
   coin.body.position.x = mouseX
 
