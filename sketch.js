@@ -1,10 +1,14 @@
+//THINGS LEFT-
 //mam now to generate new body when the player has dropped the coin, 
 //ground part , turn , multiplayer settings,ground part , turn ,
-//to change the animation on winning condition
-// ??mam how to ensure that each playe ris only able to drop the coin 
+//to change the animation on winning condition is left
+
+//QUESTION-
+// ??mam how to ensure that each player is only able to drop the coin 
 //on its turn
 //??????
 //mam pls see to ground part
+
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
