@@ -1,13 +1,12 @@
 class Game{
     constructor(){
-          
-
+      
     }
     getGameState(){
       var gameStateRef = database.ref('gameState')
       gameStateRef.on("value",function(data){
         gameState = data.val();
-    })
+      })
     }
     updateState(state){
         database.ref('/').update({
@@ -25,21 +24,51 @@ class Game{
               }
               form = new Form()
               form.display();
-            }
+        }
     }
     
     play(){
       form.hide();
       Player.getPlayerInfo();
       background(255,200,200);  
-      if(allPlayers !== undefined){
-      ground.display()
-     // 
-      coin.display()
-      board.drawBoard()
+//    if(allPlayers !== undefined){
+       
+        if(turn ===1 && playerState==1){
+          var coin = new Coin(arrBoard[5][3]["x"],arrBoard[5][0]["y"]-squareSize,59,59)
+          coin.setImage(redImage)
+          coins.push(coin)
+          playerState=2
+    
+        } 
+        if(turn==2 && playerState==2){
+          var  coin=new Coin(arrBoard[5][3]["x"],arrBoard[5][0]["y"]-squareSize,59,59)
+          coin.setImage(yellowImage)
+          coins.push(coin)
+          playerState=1
+        
+        }
+        for(var i = 0; i<coins.length; i++){
+          coins[i].display()
+        }
       
-    }
+      coins[coins.length-1].setCoinX()
+      ground.display()  
+      board.drawBoard()
+    
+      
+   // }
    }
+   end(){
+     if(endState=="win"){
+      textSize(15)
+      text("win",800,300)
+     }else if(endState=="tie"){
+      textSize(15)
+      text("tie",800,300)
+     }
+     
+   }
+   
       
           
       

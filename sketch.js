@@ -19,7 +19,8 @@ var squareSize = 60
 var database;
 var form, player, game;
 var board;
-var coin;
+var coins=[];
+
 var ground;
 var playerCount
 var allPlayers
@@ -29,12 +30,17 @@ var arrBoard = []
 var marginX = 60
 var marginY = 100
 var canvas
-var mouseState = 0
+var playerState = 1
 var turn = 1
-
-
+var wall1,wall2
+var numRow = 6
+var numCol = 7
+var endState 
+var speed = 1
 function preload(){
   boardImg = loadImage("images/board.png")
+  redImage= loadImage("images/redCoin.png")
+  yellowImage= loadImage("images/yellowCoin.png")
 }
 function setup() {
   createCanvas(displayWidth,displayHeight);
@@ -56,9 +62,8 @@ function setup() {
   
   
   ground = new Ground(arrBoard[0][3]["x"],arrBoard[0][0]["y"]+30,420,10)
-  coin = new Coin(arrBoard[0][3]["x"],arrBoard[5][0]["y"]-squareSize,50,50)
-  coin.body.position.x = mouseX
-
+  wall1 = new Ground(arrBoard[0][0]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
+  wall2 = new Ground(arrBoard[0][5]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
   
 }
 
@@ -72,10 +77,10 @@ function draw() {
     clear();
     game.play();
   }
+  if(gameState == 2){
+    game.end()
+  }
   
-  
-
-  coin.setCoinX()
  
 
  
@@ -85,33 +90,40 @@ function draw() {
 function mouseClicked(){
   
   var col = board.getDroppedCoinCol()
-  var row = board.getDroppedCoinRow()
+  
   if(isValidCol(col)){
-    Matter.Body.setStatic(coin.body, false)
-    Matter.Body.setVelocity(coin.body, {x:0,y:10})
-    coin.state="Dropped"
-
-    if(horiCheck(row,col)>=4){
+    var row = board.getDroppedCoinRow(col)
+    Matter.Body.setStatic(coins[coins.length-1].body, false)
+    coins[coins.length-1].state="Dropped"
+   
+    arrBoard[row][col]["state"]=turn
+    
+    
+      
+    if(allchecks(row,col)){
       //call winning func
-
-    }else if(vertCheck(row,col)>=4){
-     //call winning func
- 
-    /*}else if(call diag check diagCheck(row,col)>=4){
-      call winning func
-    }*/
-  }else{
-    coin.state="Dropped"
-    if(turn == 1){
-    turn = 2
-    }else{
-      turn = 1
+      while(! coins[coins.length-1].body.speed<speed){
+        textSize(16)
+        text("DO NOT CHANGE THE STATE TILL I STOP",600,300)
+  
+      }
+      gameState=2
+      endState="win"
+     }else if(coins.length==numRow*numCol){
+       gmaeState=2
+       endState="tie"
+     }
+     else{
+     if(turn==1){
+       turn = 2
+     }else{
+       turn=1
+     }
+       console.log(horiCheck(row,col),vertCheck(row,col))
     }
-  }
-       
-  }
-  
 
-  
-
+    console.log(coins[coins.length-1])
+     
+  }
 }
+    

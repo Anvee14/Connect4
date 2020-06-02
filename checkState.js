@@ -1,14 +1,21 @@
 function isValidCol(col){
-    if(arrBoard[0][col]["state"]==0){
+    if(arrBoard[5][col]["state"]==0){
         return true 
     }
     else{
         return false
     }
 }
+function allchecks(row,col){
+  if(horiCheck(row,col)>=4||vertCheck(row,col)>=4){//||diagCheck(row,col)>=4){
+    return true
+  }else{
+    return false
+  }
+}
 function horiCheck(row,col){
     var counter = 1
-    console.log(arrBoard[0][3]["state"])
+    //console.log(arrBoard[0][5]["state"])
 
     for(var i = col+1 ;i<arrBoard[row].length;i++){
       if(arrBoard[row][col]["state"]== arrBoard[row][i]["state"]){
@@ -18,7 +25,7 @@ function horiCheck(row,col){
         }
       }
 
-      for(var i = col-1 ;i>0;i--){
+      for(var i = col-1 ;i>=0;i--){
       if(arrBoard[row][col]["state"]== arrBoard[row][i]["state"]){
           counter++
         
@@ -32,7 +39,7 @@ function horiCheck(row,col){
         var counter = 1
       //  console.log(arrBoard[0][3]["state"])
 
-        for(var i = row +1 ;i<arrBoard[col].length;i++){
+        for(var i = row +1 ;i<arrBoard.length;i++){
           if(arrBoard[row][col]["state"]== arrBoard[i][col]["state"]){
               counter++
           }else{
@@ -40,7 +47,7 @@ function horiCheck(row,col){
             }
           }
 
-          for(var i = row-1 ;i>0;i--){
+          for(var i = row-1 ;i>=0;i--){
           if(arrBoard[row][col]["state"]== arrBoard[i][col]["state"]){
               counter++
             
@@ -50,3 +57,4 @@ function horiCheck(row,col){
           }
           return counter;
         }
+      

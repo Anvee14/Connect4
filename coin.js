@@ -2,8 +2,8 @@ class Coin {
     constructor(x, y, width, height) {
         var options = {
             isStatic: true,
-            restitution:0.8,
-            friction:0.5,
+       //     restitution:0.8,
+            friction:0.1,
             //'density':1.0
 
         }
@@ -11,33 +11,35 @@ class Coin {
         this.width = width;
         this.height = height;   
         World.add(world, this.body);
-        this.redImage= loadImage("images/redCoin.png")
-        this.yellowImage= loadImage("images/yellowCoin.png")
+       
         this.state = "notDropped"
         
     }
     display(){
         var pos =  this.body.position
         imageMode(CENTER);
-        image(this.yellowImage,pos.x,pos.y, this.width, this.height);
-       // rectMode(CENTER);
-        //rect(mouseX,pos.y, this.width, this.height);
-      //  console.log(this.body.position)
+        image(this.image,pos.x,pos.y, this.width, this.height);
+       
 
     }
     setCoinX(){
+       
        if (this.state == "notDropped"){
-       var pos =  this.body.position
+        
+     //  var pos =  this.body.position
        if(mouseX>90 && mouseX<480+30){
         var cols = Math.floor((mouseX-90)/60)
-       pos.x = arrBoard[0][cols]["x"]
-      // console.log(pos.x)
+  //    console.log(coinCount)
+        Matter.Body.setPosition(coins[coins.length-1].body,{x:arrBoard[0][cols]["x"],y:coins[coins.length-1].body.position.y})
       }
      }
        
     }
    
-    
+    setImage(img){
+      this.image=img
+
+    }
 
 
 
