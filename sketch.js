@@ -102,11 +102,11 @@ function mouseClicked(){
       
     if(allchecks(row,col)){
       //call winning func
-      while(! coins[coins.length-1].body.speed<speed){
-        textSize(16)
-        text("DO NOT CHANGE THE STATE TILL I STOP",600,300)
+    //  while(! coins[coins.length-1].body.speed<speed){
+     //   textSize(16)
+     //   text("DO NOT CHANGE THE STATE TILL I STOP",600,300)
   
-      }
+    //  }
       gameState=2
       endState="win"
      }else if(coins.length==numRow*numCol){
