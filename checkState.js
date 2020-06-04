@@ -7,7 +7,7 @@ function isValidCol(col){
     }
 }
 function allchecks(row,col){
-  if(horiCheck(row,col)>=4||vertCheck(row,col)>=4){//||diagCheck(row,col)>=4){
+  if(horiCheck(row,col)>=4||vertCheck(row,col)>=4||diagCheck(row,col)>=4){
     return true
   }else{
     return false
@@ -57,4 +57,31 @@ function horiCheck(row,col){
           }
           return counter;
         }
+    function diagCheck(row,col){
+      var counter = 1
+      
+      for(var i = col; i<arrBoard[row].length;i++){
+        console.log(row,col)
+        if(arrBoard[row][col]["state"]== arrBoard[row+1][i]["state"]){
+          
+          counter++
+          
+        }else{
+          break;
+          }
+        }
+        for(var i = col-1; i>=0;i--){
+          if(arrBoard[row][col]["state"]== arrBoard[row+1][i]["state"]){
+            counter++
+      
+          }else{
+            break;
+            }
+          }
+          return counter;
+        
+      }
+  
+
+    
       

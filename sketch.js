@@ -1,14 +1,10 @@
 //THINGS LEFT-
-//mam now to generate new body when the player has dropped the coin, 
-//ground part , turn , multiplayer settings,ground part , turn ,
-//to change the animation on winning condition is left
+//multiplayer settings
+//diagCheck
 
 //QUESTION-
-// ??mam how to ensure that each player is only able to drop the coin 
-//on its turn
-//??????
-//mam pls see to ground part
-
+//mam we how to wait for coin to fall before updating the array
+//diagCheck
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
@@ -51,7 +47,6 @@ function setup() {
   database = firebase.database();
 
   game = new Game();
-  game.getGameState();
   game.start();
 
   form = new Form()
@@ -70,7 +65,9 @@ function setup() {
 function draw() {
   
   Engine.update(engine);
-  if(playerCount === 2){
+  game.getGameState();
+  
+  if(playerCount === 2&&gameState==0){
     game.updateState(1);
   }
   if(gameState === 1){
@@ -78,6 +75,7 @@ function draw() {
     game.play();
   }
   if(gameState == 2){
+    
     game.end()
   }
   
@@ -88,42 +86,42 @@ function draw() {
 }
 
 function mouseClicked(){
-  
+  if(gameState==1){
+  //  console.log("gameState:",gameState)
   var col = board.getDroppedCoinCol()
   
   if(isValidCol(col)){
     var row = board.getDroppedCoinRow(col)
     Matter.Body.setStatic(coins[coins.length-1].body, false)
     coins[coins.length-1].state="Dropped"
-   
     arrBoard[row][col]["state"]=turn
-    
+    console.log("turn:",turn)
     
       
     if(allchecks(row,col)){
       //call winning func
-    //  while(! coins[coins.length-1].body.speed<speed){
-     //   textSize(16)
-     //   text("DO NOT CHANGE THE STATE TILL I STOP",600,300)
   
-    //  }
-      gameState=2
+      game.updateState(2)
+      
       endState="win"
-     }else if(coins.length==numRow*numCol){
-       gmaeState=2
+     } else if(coins.length==numRow*numCol){
+   //    console.log("inside coins.length")
+       game.updateState(2)
        endState="tie"
-     }
-     else{
-     if(turn==1){
+    //   console.log(coins.length)
+     } else{
+      if(turn==1){
        turn = 2
-     }else{
+      }else{
        turn=1
      }
-       console.log(horiCheck(row,col),vertCheck(row,col))
     }
-
-    console.log(coins[coins.length-1])
+       //console.log(horiCheck(row,col),vertCheck(row,col))
+    }
+ //   console.log(coins.length)
+ //   console.log(arrBoard)
      
   }
-}
+  }
+
     

@@ -62,10 +62,12 @@ class Game{
      if(endState=="win"){
       textSize(15)
       text("win",800,300)
-     }else if(endState=="tie"){
+     }
+      if(endState=="tie"){
       textSize(15)
       text("tie",800,300)
      }
+     
      
    }
    
