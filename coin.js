@@ -27,8 +27,8 @@ class Coin {
        if (this.state == "notDropped"){
         
      //  var pos =  this.body.position
-       if(mouseX>90 && mouseX<480+30){
-        var cols = Math.floor((mouseX-90)/60)
+       if(mouseX>marginX && mouseX<marginX+squareSize*numCol){
+        var cols = Math.floor((mouseX-marginX)/squareSize)
   //    console.log(coinCount)
         Matter.Body.setPosition(coins[coins.length-1].body,{x:arrBoard[0][cols]["x"],y:coins[coins.length-1].body.position.y})
       }

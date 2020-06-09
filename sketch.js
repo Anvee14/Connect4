@@ -23,16 +23,17 @@ var allPlayers
 var backgroundImg
 var gameState = 0
 var arrBoard = []
-var marginX = 60
-var marginY = 100
+var marginX = 90
+var marginY = 90
 var canvas
 var playerState = 1
 var turn = 1
 var wall1,wall2
-var numRow = 6
-var numCol = 7
+var numRow = 10
+var numCol = 10
 var endState 
 var speed = 1
+var numWin = 4
 function preload(){
   boardImg = loadImage("images/board.png")
   redImage= loadImage("images/redCoin.png")
@@ -49,16 +50,16 @@ function setup() {
   game = new Game();
   game.start();
 
-  form = new Form()
+  
 
   board = new Board()
   board.pushPosition()
   console.log(arrBoard)
   
   
-  ground = new Ground(arrBoard[0][3]["x"],arrBoard[0][0]["y"]+30,420,10)
-  wall1 = new Ground(arrBoard[0][0]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
-  wall2 = new Ground(arrBoard[0][5]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
+  ground = new Ground(displayWidth/2,arrBoard[0][0]["y"]+30,displayWidth,10)
+ // wall1 = new Ground(arrBoard[0][0]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
+ // wall2 = new Ground(arrBoard[0][5]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
   
 }
 
@@ -67,7 +68,7 @@ function draw() {
   Engine.update(engine);
   game.getGameState();
   
-  if(playerCount === 2&&gameState==0){
+  if(playerCount === 2 && gameState==0){
     game.updateState(1);
   }
   if(gameState === 1){
@@ -75,7 +76,6 @@ function draw() {
     game.play();
   }
   if(gameState == 2){
-    
     game.end()
   }
   
@@ -87,7 +87,7 @@ function draw() {
 
 function mouseClicked(){
   if(gameState==1){
-  //  console.log("gameState:",gameState)
+ // console.log("gameState:",gameState)
   var col = board.getDroppedCoinCol()
   
   if(isValidCol(col)){
@@ -98,13 +98,14 @@ function mouseClicked(){
     console.log("turn:",turn)
     
       
-    if(allchecks(row,col)){
+    if (allchecks(row, col)) {
       //call winning func
-  
-      game.updateState(2)
-      
-      endState="win"
-     } else if(coins.length==numRow*numCol){
+      if (row === 4) {
+        game.updateState(2);
+        endState = "win";
+      }
+    }
+    else if(coins.length==numRow*numCol){
    //    console.log("inside coins.length")
        game.updateState(2)
        endState="tie"
@@ -116,10 +117,9 @@ function mouseClicked(){
        turn=1
      }
     }
-       //console.log(horiCheck(row,col),vertCheck(row,col))
+       
     }
- //   console.log(coins.length)
- //   console.log(arrBoard)
+
      
   }
   }

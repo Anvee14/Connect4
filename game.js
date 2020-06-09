@@ -34,14 +34,14 @@ class Game{
 //    if(allPlayers !== undefined){
        
         if(turn ===1 && playerState==1){
-          var coin = new Coin(arrBoard[5][3]["x"],arrBoard[5][0]["y"]-squareSize,59,59)
+          var coin = new Coin(arrBoard[numRow-1][int(numCol/2)]["x"],arrBoard[numRow-1][0]["y"]-squareSize,59,59)
           coin.setImage(redImage)
           coins.push(coin)
           playerState=2
     
         } 
         if(turn==2 && playerState==2){
-          var  coin=new Coin(arrBoard[5][3]["x"],arrBoard[5][0]["y"]-squareSize,59,59)
+          var  coin=new Coin(arrBoard[numRow-1][int(numCol/2)]["x"],arrBoard[numRow-1][0]["y"]-squareSize,59,59)
           coin.setImage(yellowImage)
           coins.push(coin)
           playerState=1
@@ -52,7 +52,7 @@ class Game{
         }
       
       coins[coins.length-1].setCoinX()
-      ground.display()  
+     
       board.drawBoard()
     
       
@@ -62,12 +62,14 @@ class Game{
      if(endState=="win"){
       textSize(15)
       text("win",800,300)
+      gameState=2
      }
       if(endState=="tie"){
       textSize(15)
       text("tie",800,300)
+      gameState=2
      }
-     
+
      
    }
    

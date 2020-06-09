@@ -1,13 +1,13 @@
 class Board {
     constructor(){
         this.x = marginX
-        this.y = 480
+        this.y = marginX+numCol*squareSize
         
     }
     pushPosition(){
         for(var i = 0 ; i < numRow ; i++){
             this.y -= squareSize
-            this.x=60
+            this.x=squareSize
             var arrBoardCols = []
             for(var j = 0 ; j < numCol; j++){
             this.x += squareSize
@@ -39,7 +39,7 @@ class Board {
      for(var i = 0 ;i<arrBoard.length;i++){
 
         if(arrBoard[i][col]["state"]==0){
-          arrBoard[i][col]["state"]=1
+         // arrBoard[i][col]["state"]=1
           return(i)         
         }
       }      

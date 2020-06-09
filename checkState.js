@@ -1,5 +1,5 @@
 function isValidCol(col){
-    if(arrBoard[5][col]["state"]==0){
+    if(arrBoard[numRow-1][col]["state"]==0){
         return true 
     }
     else{
@@ -7,7 +7,7 @@ function isValidCol(col){
     }
 }
 function allchecks(row,col){
-  if(horiCheck(row,col)>=4||vertCheck(row,col)>=4||diagCheck(row,col)>=4){
+  if(horiCheck(row,col)>=numWin||vertCheck(row,col)>=numWin||diagCheckLeft(row,col)>=numWin||diagCheckRight(row,col)>=numWin){
     return true
   }else{
     return false
@@ -57,31 +57,52 @@ function horiCheck(row,col){
           }
           return counter;
         }
-    function diagCheck(row,col){
-      var counter = 1
-      
-      for(var i = col; i<arrBoard[row].length;i++){
-        console.log(row,col)
-        if(arrBoard[row][col]["state"]== arrBoard[row+1][i]["state"]){
-          
-          counter++
-          
-        }else{
-          break;
+        function diagCheckRight(row,col){
+          var counter = 1
+          let i1=row
+          let j1=col
+          while(i1<arrBoard.length-1 && j1<arrBoard[row].length-1) {
+              if(arrBoard[row][col]["state"]==arrBoard[++i1][++j1]["state"]){
+                 counter++
+                 
+              }else{
+                break;
+              }
           }
-        }
-        for(var i = col-1; i>=0;i--){
-          if(arrBoard[row][col]["state"]== arrBoard[row+1][i]["state"]){
-            counter++
-      
+          let i2=row
+          let j2=col
+          while(i2>0 && j2>0) {
+          if(arrBoard[row][col]["state"]==arrBoard[--i2][--j2]["state"]){
+             counter++
+             
           }else{
             break;
-            }
           }
-          return counter;
-        
       }
-  
-
-    
-      
+      return counter;
+    }
+     
+    function diagCheckLeft(row,col){
+      var counter = 1
+      let i1=row
+      let j1=col
+      while(i1<arrBoard.length-1 && j1>0) {
+          if(arrBoard[row][col]["state"]==arrBoard[++i1][--j1]["state"]){
+             counter++
+             
+          }else{
+            break;
+          }
+      }
+      let i2=row
+      let j2=col
+      while(i2>0 && j2<arrBoard[row].length-1) {
+      if(arrBoard[row][col]["state"]==arrBoard[--i2][++j2]["state"]){
+         counter++
+         
+      }else{
+        break;
+      }
+  }
+  return counter;
+}
