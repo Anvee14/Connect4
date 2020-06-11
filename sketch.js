@@ -16,7 +16,7 @@ var database;
 var form, player, game;
 var board;
 var coins=[];
-
+var endMsg;
 var ground;
 var playerCount
 var allPlayers
@@ -29,9 +29,8 @@ var canvas
 var playerState = 1
 var turn = 1
 var wall1,wall2
-var numRow = 10
-var numCol = 10
-var endState 
+var numRow = 6
+var numCol = 7
 var speed = 1
 var numWin = 4
 function preload(){
@@ -50,16 +49,12 @@ function setup() {
   game = new Game();
   game.start();
 
-  
-
   board = new Board()
   board.pushPosition()
   console.log(arrBoard)
   
   
   ground = new Ground(displayWidth/2,arrBoard[0][0]["y"]+30,displayWidth,10)
- // wall1 = new Ground(arrBoard[0][0]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
- // wall2 = new Ground(arrBoard[0][5]["x"]-30,arrBoard[2][3]["y"]+30,1,420)
   
 }
 
@@ -76,12 +71,8 @@ function draw() {
     game.play();
   }
   if(gameState == 2){
-    game.end()
+    game.end(endMsg)
   }
-  
- 
-
- 
   
 }
 
@@ -95,21 +86,18 @@ function mouseClicked(){
     Matter.Body.setStatic(coins[coins.length-1].body, false)
     coins[coins.length-1].state="Dropped"
     arrBoard[row][col]["state"]=turn
-    console.log("turn:",turn)
+   // console.log("turn:",turn)
     
       
     if (allchecks(row, col)) {
       //call winning func
-      if (row === 4) {
         game.updateState(2);
-        endState = "win";
-      }
+        endMsg = "WIN";
     }
     else if(coins.length==numRow*numCol){
-   //    console.log("inside coins.length")
        game.updateState(2)
-       endState="tie"
-    //   console.log(coins.length)
+       endMsg="TIE"
+    
      } else{
       if(turn==1){
        turn = 2

@@ -25,14 +25,18 @@ class Game{
               form = new Form()
               form.display();
         }
+
+        
     }
     
     play(){
       form.hide();
       Player.getPlayerInfo();
-      background(255,200,200);  
-//    if(allPlayers !== undefined){
-       
+      background(255,200,200);
+      var index = 0;  
+     if(allPlayers !== undefined){
+       index = index + 1
+      for(var plr in allPlayers){
         if(turn ===1 && playerState==1){
           var coin = new Coin(arrBoard[numRow-1][int(numCol/2)]["x"],arrBoard[numRow-1][0]["y"]-squareSize,59,59)
           coin.setImage(redImage)
@@ -50,27 +54,25 @@ class Game{
         for(var i = 0; i<coins.length; i++){
           coins[i].display()
         }
-      
-      coins[coins.length-1].setCoinX()
+    
+        coins[coins.length-1].setCoinX()
+     
      
       board.drawBoard()
-    
+     } 
       
-   // }
+     }
    }
-   end(){
-     if(endState=="win"){
-      textSize(15)
-      text("win",800,300)
-      gameState=2
-     }
-      if(endState=="tie"){
-      textSize(15)
-      text("tie",800,300)
-      gameState=2
-     }
-
-     
+   end(msg){
+    background(255,200,200);
+    for(var i = 0; i<coins.length; i++){
+      coins[i].display()
+    }
+    board.drawBoard()
+    fill(0, 102, 153)
+    textSize(30)
+    text("Player "+turn+" - "+msg,200,45)
+    
    }
    
       
